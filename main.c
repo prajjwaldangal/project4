@@ -18,7 +18,9 @@ void printState(void) {
 	}
 }
 
-void think(int p_n) {
+void pickup_forks(int p_n) {
+	int t = rand() % 180 + 1; // eat for random time upto 3 minutes
+	pthread_mutex_lock(&available);
 	
 }
 
@@ -26,16 +28,17 @@ void *worker (void * p_n) {
 	int * k = (int *) p_n;
 	int p = *k;
 	while(1) {
-		think(p);	
+		pickup_forks(p);
+		//return_forks(p);	
 	}
 }
 
 int main(int argc, const char * argv[])
 {
 	printf("*************************************************\n\nNote: I am assuming that the no. of philosophers input to the program does not exceed 9999999.\n*************************************************\n");
+	srand(time(NULL));
 	printf("Enter number of philosophers for the program\n");
 	scanf("%d", &n);
-
 	// start with thinking for all philosophers
 	for(int i=0; i<n; i++) {
 		State[i] = thinking;
